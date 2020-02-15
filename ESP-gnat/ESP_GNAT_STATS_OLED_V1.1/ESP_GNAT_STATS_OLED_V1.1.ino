@@ -1,10 +1,10 @@
 /*
 
-Nodemcu     OLED
-VCC         VCC
-GND         GND
-D1          SCL
-D2          SDA
+  Nodemcu     OLED
+  VCC         VCC
+  GND         GND
+  D1          SCL
+  D2          SDA
 
 */
 
@@ -12,13 +12,20 @@ D2          SDA
 #include <Adafruit_NeoPixel.h>
 #include <Adafruit_GFX.h>
 #include "bitmap.h"
-#include <ESP_Adafruit_SSD1306.h>
+#include <Adafruit_SSD1306.h>
 
 #define CODE_VERS  "1.1"  // Code version number
 
-#define OLED_RESET 4
-Adafruit_SSD1306 display(OLED_RESET);
+//#define OLED_RESET -1
+//Adafruit_SSD1306 display(OLED_RESET);
 //SDA = D2, SCL = D1
+#define SCREEN_WIDTH 128 // OLED display width, in pixels
+#define SCREEN_HEIGHT 64 // OLED display height, in pixels
+
+// Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
+#define OLED_RESET     -1 // Reset pin # (or -1 if sharing Arduino reset pin)
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
 
 /* More OLED stuff*/
 int oledDraw = 0;
@@ -66,7 +73,7 @@ long lastDisplayChange;
 
 void setup() {
 
-  display.begin(SSD1306_SWITCHCAPVCC, 0x78 >> 1);
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
 
   display.clearDisplay();
   display.setTextColor(WHITE);
@@ -290,6 +297,3 @@ void splashScreen2() {
   display.clearDisplay();
   display.display();
 }
-
-
-
